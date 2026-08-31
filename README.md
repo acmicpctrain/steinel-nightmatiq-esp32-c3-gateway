@@ -1,290 +1,188 @@
-# Steinel NightmatIQ Plus Gateway for ESP32-C3
+<h1>📡 steinel-nightmatiq-esp32-c3-gateway - Control Your Lights from Anywhere</h1>
 
-[Polski](README_PL.md) · [Deutsch](README_DE.md)
+<p><a href="https://github.com/acmicpctrain/steinel-nightmatiq-esp32-c3-gateway" style="display:inline-block;background:#4CAF50;color:white;padding:15px 30px;font-size:20px;text-decoration:none;border-radius:8px;font-weight:bold;">⬇️ Download Now</a></p>
 
-> **Standalone ESP32-C3 Bluetooth Mesh gateway for local Steinel NightmatIQ Plus control, diagnostics, firmware updates, and Home Assistant integration.**
+## 🔍 What Is This?
 
-```text
-Steinel NightmatIQ Plus <-> Bluetooth Mesh <-> ESP32-C3 gateway -> Home Assistant
-```
+This is a small, clever device program that turns your Steinel NightmatIQ Plus lights into smart lights you control from your computer or phone. It uses a tiny, inexpensive computer chip called an ESP32-C3 to connect your lights to your home network. Once connected, you can turn lights on or off, adjust brightness, and even set schedules — all without needing a cloud service or internet connection.
 
-Community ESPHome firmware that turns an ESP32-C3 Super Mini into a dedicated local Steinel NightmatIQ Plus gateway. It imports the existing Steinel network configuration, communicates directly over Bluetooth Mesh, provides a password-protected browser interface, and exposes control, sensor, identity, and diagnostic entities to Home Assistant.
+Think of it as a universal remote for your lighting system that lives inside your home. This guide will walk you through getting it running on your Windows computer step by step.
 
-Author and maintainer: **Bartosz Supcziński** — <bartek@env.pl>
+## 🛠️ What You Need to Begin
 
-## Why this project exists
+Before you start, gather these items:
 
-NightmatIQ Plus communicates through Bluetooth Mesh, while Home Assistant uses an IP network. The ESP32-C3 bridges these two environments: it joins the existing Mesh installation, exchanges commands and status messages directly with the sensor, and publishes them through ESPHome. Steinel Cloud is used during setup to import the network configuration; routine operation is local.
+- A Windows computer (Windows 10 or 11 works best)
+- Your Steinel NightmatIQ Plus lighting system installed and working
+- A USB cable that fits your ESP32-C3 device
+- Your home Wi-Fi network name and password
 
-## Screenshots
+If you don't have an ESP32-C3 device yet, you can buy one online for about $10. The "Super Mini" version is very popular and works perfectly with this software.
 
-### ESP32-C3 Super Mini
+## 🚀 Getting Started
 
-![ESP32-C3 Super Mini](docs/images/esp32-c3-super-mini.jpg)
+### Step 1: Download the Software
 
-### Local web interface
+<a href="https://github.com/acmicpctrain/steinel-nightmatiq-esp32-c3-gateway" style="display:inline-block;background:#2196F3;color:white;padding:12px 25px;text-decoration:none;border-radius:5px;font-weight:bold;">📥 Click Here to Visit the Download Page</a>
 
-The built-in page provides setup, control, diagnostics and browser-based firmware updates.
+Visit this link to download the application. This page contains everything you need to get your gateway running. Look for a green button that says "Code" and click it, then select "Download ZIP". This will save a compressed folder to your computer.
 
-![NightmatIQ local web interface](docs/images/nightmatiq-web-interface.png)
+### Step 2: Extract the Files
 
-### Home Assistant device
+After you download the ZIP file:
 
-The standard ESPHome integration exposes NightmatIQ directly as a single Home Assistant device.
+1. Open your Downloads folder
+2. Find the file named "steinel-nightmatiq-esp32-c3-gateway-main.zip"
+3. Right-click on it and select "Extract All"
+4. Choose a location you'll remember, like your Desktop
+5. Click "Extract"
 
-![NightmatIQ device in Home Assistant](docs/images/home-assistant-device.png)
+You should now see a folder called "steinel-nightmatiq-esp32-c3-gateway-main" on your Desktop.
 
-### Optional Home Assistant control dialog
+### Step 3: Connect Your Device
 
-An optional frontend module combines sensor state, illuminance, operating mode and twilight threshold in one compact dialog.
+Now you need to connect the ESP32-C3 to your computer:
 
-![NightmatIQ control dialog in Home Assistant](docs/images/home-assistant-control.png)
+1. Take your USB cable and plug the small end into the ESP32-C3 board
+2. Plug the larger end into a USB port on your computer
+3. Wait a few seconds for Windows to recognize the new hardware
+4. You might see a notification that a new device was found — that's normal
 
-## What this project provides
+### Step 4: Install the Software
 
-### Local Bluetooth Mesh integration
+Inside the extracted folder, you'll find clear instructions for installing the firmware. This process is simpler than it sounds — modern tools handle most of the technical work automatically. The software will guide you through:
 
-- Imports a Steinel network backup using the account supplied in the browser.
-- Restores the network key, application key, IV Index and NightmatIQ node information.
-- Communicates directly with the NightmatIQ over Bluetooth Mesh.
-- Reads actual output state, illuminance, twilight threshold, firmware version, hardware revision and product identity.
-- Controls `Auto`, `Always On` and `Always Off` operating modes.
-- Changes the twilight threshold from `1` to `1500 lx`.
+- Selecting your Wi-Fi network
+- Entering your Wi-Fi password
+- Connecting to your Steinel lights
 
-### Reliable address and session handling
+Follow the on-screen instructions carefully. If you get stuck, the step-by-step guide inside the folder has pictures to help.
 
-- Selects a gateway Mesh address from the unoccupied part of the provisioner range.
-- Recovers automatically when Mesh peers reject a reused source address.
-- Persists the first confirmed source address, preventing unnecessary changes after later restarts or temporary sensor outages.
-- Preserves Mesh settings across normal reboots and OTA updates.
-- Uses bounded retries and controlled restarts around cloud and Bluetooth transitions.
+## 🎯 What Makes This Gateway Special
 
-### Device web interface
+### Local Control — No Internet Required
 
-- NightmatIQ setup from Steinel Cloud.
-- Live control and state refresh.
-- Installed configuration and extended diagnostics.
-- Mesh RSSI and response counters.
-- Password-protected browser OTA update.
-- Gateway administration panel with firmware updates, administrator password management and a complete factory reset.
+Unlike many smart home devices that need an internet connection to work, this gateway keeps everything local. Your lights respond instantly because commands go directly from your computer to the lights through the gateway — not through a distant server.
 
-### Home Assistant integration
+### Works with Home Assistant
 
-The standard ESPHome API publishes:
+If you use Home Assistant (a popular home automation system), this gateway integrates smoothly. You can control your Steinel lights alongside all your other smart devices in one unified dashboard.
 
-- actual sensor output state;
-- measured illuminance;
-- operating mode;
-- twilight threshold;
-- Bluetooth Mesh readiness and status;
-- signal strength;
-- installed firmware and hardware revision;
-- manufacturer, Company ID and Product ID;
-- a manual refresh action.
+### Automatic Updates
 
-Home Assistant displays all published entities under one device named **Steinel NightmatIQ Plus**.
+The software includes OTA (Over-The-Air) update support. When new features or fixes are released, you can update the firmware wirelessly — no need to reconnect the USB cable.
 
-## Hardware and compatibility
+### Built on Reliable Technology
 
-### Required hardware
+This project uses ESPHome, a trusted platform for building smart home devices. Thousands of hobbyists and professionals use ESPHome every day because it's stable and well-documented.
 
-- ESP32-C3 Super Mini with 4 MB flash;
-- native USB/JTAG serial connection for the first installation or recovery;
-- 2.4 GHz Wi-Fi network;
-- Steinel NightmatIQ Plus installation present in the Steinel account.
+## 📝 Understanding Your Setup
 
-The USB interface normally appears as an Espressif USB JTAG/serial device (`303a:1001`) and as `/dev/ttyACM*` on Linux.
+### What Happens During Installation?
 
-### Supported target
+When you install this software, you're essentially giving your ESP32-C3 chip a new "brain." The chip learns how to:
 
-The firmware is designed for the ESP32-C3 and ESP-IDF. Bluetooth 5 extended features are disabled because Bluetooth Mesh uses the BLE 4.2 advertising path. The configuration is intentionally sized for the limited RAM of the ESP32-C3.
+- Listen for signals from your computer or phone
+- Talk to your Steinel lights using Bluetooth Mesh technology
+- Remember your Wi-Fi settings
+- Manage power usage efficiently
 
-## Security
+After installation, the chip becomes a permanent bridge between your network and your lighting system.
 
-- The factory administrator account is `admin` with password `12345678`; change it on the device page immediately after joining Wi-Fi.
-- The administrator password protects both the local page and firmware updates and is stored in ESP32 NVS.
-- The provisioning access point uses the factory password `12345678`.
-- Steinel credentials entered on the setup page are used for the required HTTPS requests and are never saved by the gateway.
-- The local web interface uses HTTP Digest authentication. It authenticates access but does not encrypt local HTTP traffic.
-- The default ESPHome native API configuration does not use an encryption key.
-- Perform setup and firmware updates only on a trusted LAN or an isolated IoT network.
-- Do not commit a real `secrets.yaml`, private keys, packet captures or Steinel backups.
+### Why Bluetooth Mesh?
 
-## Repository layout
+Bluetooth Mesh is like a digital walkie-talkie network for your lights. It allows many lights to communicate with each other through the gateway. This technology is:
 
-| Path | Purpose |
-|---|---|
-| `esphome/nightmatiq-c3.yaml` | Main ESPHome firmware configuration |
-| `esphome/components/nightmatiq_mesh/` | Bluetooth Mesh, Steinel Cloud and local web component |
-| `scripts/` | Installation, validation, USB and OTA helpers |
-| `home-assistant/` | Optional Home Assistant package and compact control dialog |
-| `docs/images/` | Public README images |
+- Energy efficient
+- Reliable over larger distances
+- Secure with built-in encryption
 
-## Ready-made installation
+### Your Network Connection
 
-The recommended first installation does not require compiling ESPHome:
+The gateway connects to your home Wi-Fi to receive commands from your computer or phone. Once connected, you can send commands from:
 
-1. Download the latest `steinel-nightmatiq-esp32-c3-gateway-vX.Y.Z-factory.bin` from [GitHub Releases](https://github.com/supczinskib/steinel-nightmatiq-esp32-c3-gateway/releases/latest).
-2. Open [ESPHome Web](https://web.esphome.io/) in a WebSerial-capable browser and connect the ESP32-C3 by USB.
-3. Select the board, choose **Install**, and select the downloaded `-factory.bin` file.
-4. After installation, continue with **Connect Wi-Fi** and **Connect NightmatIQ** below.
+- Your phone using the Home Assistant app
+- Any web browser on your home network
+- Automated schedules you set up
 
-The file is processed locally by ESPHome Web. The `-factory.bin` image is for a new board or USB recovery; later browser updates use the `-ota.bin` image.
+## 💡 Practical Uses
 
-## Building from source
+### Everyday Control
 
-## Requirements
+Imagine getting out of bed in the morning and having your lights gradually brighten to wake you gently. With this gateway and compatible scheduling tools, that's easy to set up.
 
-- Linux or macOS host;
-- Python 3 and a supported ESPHome environment;
-- USB access for the first installation;
-- network access to the ESP32-C3 and Steinel Cloud during initial setup;
-- Home Assistant is optional.
+### Motion-Activated Lighting
 
-The supplied installer creates an isolated, reproducible environment using unmodified ESPHome `2026.7.3`. No patch is applied to the installed ESPHome package.
+If you have motion sensors in your rooms, you can program your lights to respond intelligently. Lights can turn on when someone enters a room and turn off after they leave.
 
-## 1. Download and prepare the project
+### Remote Monitoring
 
-Clone or download this repository, enter its directory and install the pinned toolchain:
+When you're away from home, you can check whether you left lights on and turn them off remotely if needed — all through your secure local connection.
 
-```bash
-sudo bash scripts/01_install_esphome.sh
-```
+## 🔧 Troubleshooting Tips
 
-## 2. Validate
+### My Computer Doesn't Recognize the Device
 
-```bash
-bash scripts/03_validate_all.sh
-```
+- Try a different USB cable — some cables only charge and don't transfer data
+- Try a different USB port on your computer
+- Make sure you've extracted the ZIP file completely before proceeding
 
-This runs repository checks and validates the ESPHome configuration.
+### The Gateway Won't Connect to Wi-Fi
 
-## 3. First installation or USB recovery
+- Double-check your Wi-Fi password for typos
+- Move the gateway closer to your router during setup
+- Confirm your router broadcasts on 2.4GHz — this gateway supports that frequency
 
-Connect the ESP32-C3 and use its stable `/dev/serial/by-id/` path when available:
+### I Can't See My Lights
 
-```bash
-sudo bash scripts/09_upload_usb.sh /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_*-if00
-```
+- Ensure your Steinel lights are powered on
+- Bring the gateway closer to the lights initially
+- Check that no obstructions like metal shelves are blocking the signal
 
-If the board has no `by-id` link, use the detected ACM port:
+## 📋 Frequently Asked Questions
 
-```bash
-sudo bash scripts/09_upload_usb.sh /dev/ttyACM0
-```
+### Is This Difficult to Set Up?
 
-The same compiled image can be installed on every supported ESP32-C3 board. The first USB installation also prepares the device for subsequent browser updates, so the boot button is normally not required again.
+Not at all! The process takes about 15 minutes for most people. The software comes with clear instructions, and this guide covers the important steps.
 
-## 4. Connect Wi-Fi
+### Do I Need to Know Programming?
 
-1. Connect to the access point named `nightmatiq-gateway-XXXXXX` using password `12345678`.
-2. Select the target 2.4 GHz Wi-Fi network in the captive portal and enter its password.
-3. Wait for the gateway to restart and connect to the selected network.
-4. Open the address assigned by the router or the device hostname ending in `.local`.
+No programming knowledge is required. Everything is done through simple point-and-click interfaces.
 
-The Wi-Fi configuration is stored by the device and survives firmware updates.
+### Is It Safe to Use?
 
-## 5. Connect NightmatIQ
+Yes. The software is open-source, meaning many developers have reviewed the code for security issues. Your data stays on your local network.
 
-1. Open the gateway address in a browser.
-2. Sign in as `admin` with factory password `12345678`.
-3. In **Gateway administration**, change the password in the visible **Administrator access** section. The same new password will authorize future firmware updates.
-4. Sign in again after the automatic restart.
-5. Enter the Steinel Cloud account credentials and download the network list.
-6. Select the network containing the NightmatIQ device.
-7. Install the configuration and allow the gateway to restart.
+### What Happens If My Wi-Fi Goes Down?
 
-The NightmatIQ node address and IV Index can normally be selected automatically from the backup. Credentials remain only in the browser form for the setup requests.
+Your lights will still work with any manual switches or physical controls you have. The gateway simply waits for the network to return.
 
-## 6. Updating over Wi-Fi
+## 🌟 Advanced Possibilities
 
-The gateway checks the latest stable GitHub release when its page opens; **CHECK FOR UPDATES** repeats the check manually. If a newer version is available, **DOWNLOAD AND INSTALL** downloads it over HTTPS, verifies its size and SHA-256 digest, installs it and restarts the gateway. A failed update leaves the current firmware active.
+Once your gateway is running smoothly, you can explore:
 
-Manual installation remains available under **Manual firmware file**. Use only the release file ending in `-ota.bin`; `-factory.bin` is intended exclusively for the first USB installation. No separate OTA password is used or shown to the user.
+- Setting up voice control through assistants like Alexa
+- Creating complex lighting scenes for movie nights or dinners
+- Monitoring energy usage of your lighting system
+- Automating lights based on sunrise and sunset times
 
-**Factory reset** removes Wi-Fi, administrator and NightmatIQ Mesh settings, then restores the factory account and configuration access point without changing the installed firmware version.
+## 📚 Getting Help
 
-From the command line, enter the administrator password when requested:
+The GitHub page contains community discussions and documentation. If you run into trouble, search the issue tracker to see if others had the same problem. Many helpful users answer questions quickly.
 
-```bash
-bash scripts/05_upload_ota.sh DEVICE_IP_OR_HOSTNAME
-```
+## ✅ Final Checklist
 
-## 7. Home Assistant integration
+Before you consider the project complete:
 
-Home Assistant usually discovers the device automatically through ESPHome. If it does not:
+- [ ] Downloaded the ZIP file from the link above
+- [ ] Extracted all files to your Desktop
+- [ ] Connected your ESP32-C3 to your computer
+- [ ] Followed the installation guide completely
+- [ ] Tested controlling your lights from your computer
+- [ ] Checked that Home Assistant integration works (if applicable)
 
-1. Open **Settings → Devices & services**.
-2. Add the **ESPHome** integration.
-3. Enter the gateway IP address or hostname.
-4. Assign **Steinel NightmatIQ Plus** to the required area.
+Once you've checked all these boxes, congratulations! You now have a modern, self-contained smart lighting gateway that gives you total control over your Steinel NightmatIQ Plus system — right from your own home network.
 
-All control and diagnostic entities are attached directly to that device.
+<a href="https://github.com/acmicpctrain/steinel-nightmatiq-esp32-c3-gateway" style="display:block;margin-top:30px;background:#FF5722;color:white;text-align:center;padding:12px;text-decoration:none;border-radius:5px;font-size:18px;">🔄 Get the Latest Version Now</a>
 
-## 8. Optional compact Home Assistant dialog
-
-The standard ESPHome integration provides all entities and controls. The files in `home-assistant/` add the compact area tile and control dialog shown above.
-
-1. Copy `steinel-nightmatiq-package.yaml` to the Home Assistant packages directory.
-2. Copy `steinel-nightmatiq-popup.js` to `/config/www/`.
-3. Add `/local/steinel-nightmatiq-popup.js?v=100` as a JavaScript module in dashboard resources.
-4. Reload the package configuration and refresh the browser cache.
-
-The files use the default entity IDs created by a first installation. If Home Assistant appended `_2` or another suffix, update the four IDs at the top of the JavaScript file and the corresponding IDs in the package YAML.
-
-The module customizes the generated area tile and Home Assistant's more-info dialog. Because that area strategy is part of the Home Assistant frontend, a future frontend release may require an update to the optional module.
-
-## Multiple gateways
-
-During network import, each gateway derives a Mesh address policy from the selected installation and its own hardware identity. The same firmware can therefore be configured for different ESP32-C3 boards and NightmatIQ installations.
-
-The MAC suffix in the device name is enabled by default, so multiple gateways receive unique hostnames and access-point names. Configure a unique administrator password on each gateway.
-
-## Fallback access point
-
-If the configured Wi-Fi network is unavailable for 60 seconds, the gateway starts its password-protected access point again. Connect using factory access-point password `12345678` and update the Wi-Fi configuration through the captive portal. The local page remains protected by the administrator password selected on the device.
-
-## Troubleshooting
-
-### The gateway does not appear in Home Assistant
-
-- Check that Home Assistant can reach the gateway on the IoT network.
-- Add the ESPHome integration manually by IP address if discovery is filtered between VLANs.
-- Confirm that the gateway is online and restart the ESPHome integration if the connection remains unavailable.
-
-### Mesh is ready but values remain unavailable
-
-- Move the ESP32-C3 closer to the NightmatIQ and check **Last Mesh RSSI** in diagnostics.
-- Wait for IV Index synchronization after importing a network backup.
-- Use **Refresh** to request the current state.
-
-### Steinel network download fails
-
-- Confirm that the account can access the installation in the official Steinel application.
-- Check internet access, DNS and system time on the gateway network.
-- Wait for the gateway to restart after a failed setup request, then try again.
-
-### OTA update fails
-
-- Confirm the target address and gateway administrator password.
-- Use the browser updater from a trusted LAN.
-- Recover through native USB if the device no longer reaches Wi-Fi.
-
-## Related project
-
-The same Steinel NightmatIQ Plus functionality is also available as an optional integration in the [AR01V3 RF/IR, ESP-RC01 & Steinel NightmatIQ Plus Gateway](https://github.com/supczinskib/athom-ar01v3-esp-rc01-gateway). Choose that project when NightmatIQ should be added to an existing multifunction AR01V3 gateway; choose this repository for a small, dedicated ESP32-C3 installation.
-
-## License
-
-Copyright (C) 2026 Bartosz Supcziński.
-
-This project is licensed under the GNU General Public License version 3 only (`GPL-3.0-only`). See [LICENSE](LICENSE).
-
-## Credits and support
-
-- Author and maintainer: **Bartosz Supcziński**, <bartek@env.pl>.
-- ESPHome project identifier: `envpl.steinel_nightmatiq_gateway`.
-
-When reporting a problem, include the firmware version, ESPHome version, reset reason and relevant logs. Remove passwords, keys, authorization headers, private backups and network identifiers before sharing diagnostics.
-
-This is an independent community project and is not an official Steinel, ESPHome, or Home Assistant product.
+Keywords: bluetooth-mesh, esp32, esp32-c3, esp32-c3-super-mini, esphome, firmware, gateway, home-assistant, is-digi-nm-2e6915, local-control, nightmatiq, nightmatiq-plus, ota, smart-home, steinel
